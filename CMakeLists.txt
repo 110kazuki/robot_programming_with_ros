@@ -15,9 +15,9 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   roslib
   std_msgs
+  #geometry_msgs
+  #sensor_msgs
   message_generation
-  sensor_msgs
-  geometry_msgs
 )
 
 ## Generate messages in the 'msg' folder
@@ -25,13 +25,16 @@ add_message_files(
   FILES
   SensorAD.msg
 )
-generate_messages(DEPENDENCIES std_msgs)
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
 
 catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES ros1_learning
+  #INCLUDE_DIRS include
+  #LIBRARIES ros1_learning
   CATKIN_DEPENDS roscpp std_msgs message_runtime
-  DEPENDS system_lib
+  #DEPENDS system_lib
  )
 
 ## launch file
@@ -41,12 +44,20 @@ install(DIRECTORY
 )
 
 ## build include diretory
-include_directories(include)
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+)
+
 #add_library(${PROJECT_NAME} ${${PROJECT_NAME}_SRCS})
 
-#add_executable(pub_line_parameter_csi_cuda src/pub_line_parameter_CSI_CUDA.cpp)
-#target_compile_options(pub_line_parameter_csi_cuda PRIVATE ${OpenMP_FLAGS})
-#target_link_libraries(pub_line_parameter_csi_cuda ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${OpenMP_LIBS})
+add_executable(
+  cpp_minimum src/cpp_minimum_script.cpp
+)
+
+target_link_libraries(cpp_minimum
+  ${catkin_LIBRARIES}
+)
+
 
 
 ## Generate node (python)
