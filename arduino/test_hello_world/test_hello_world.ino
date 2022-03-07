@@ -13,7 +13,7 @@ ros::NodeHandle nh;
 
 //message
 std_msgs::String str_msg;
-ros::Publisher pub("chatter", &str_msg); //"chatter" is the name of the message.
+ros::Publisher pub("chatter", &str_msg); //"chatter" is the name of the topic (message).
 char hello[13] = "hello world!";
 
 void setup() {

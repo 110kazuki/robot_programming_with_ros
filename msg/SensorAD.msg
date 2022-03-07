@@ -1,1 +1,1 @@
-int64 ad_val 
+int16 ad_val 
