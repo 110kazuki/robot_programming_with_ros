@@ -1,29 +1,35 @@
 #undef ESP32
 #include <ros.h> //USB serial mode
 #define ESP32
+#include "ros1_learning/SensorAD.h"
 
 //ros
 ros::NodeHandle nh;
 
 //message
-std_msgs::String str_msg;
-ros::Publisher pub("chatter", &str_msg);
-char hello[13] = "hello world!";
+ros1_learning::SensorAD.h sensor_ad;
+ros::Publisher pub("sensor_ad", &SensorAD);
 
 //pin
 int const sonsor_signal_pin = 34;
 
 
 void setup() {
+  //ilitialize ros
   nh.getHardware()->setBaud(115200);
   nh.initNode();
   nh.advertise(pub);
+  //pin mode setting
+  pinMode(sonsor_signal_pin, INPUT);
 }
 
 void loop() {
+  //AD convert
+  sensor_ad.ad_val = analogRead( sonsor_signal_pin );
+  
   //publish message
-  pub.publish( &hello );
+  pub.publish( &sensor_ad );
   
   nh.spinOnce();
-  delay(1000);
+  delay(5);
 }

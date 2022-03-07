@@ -1,0 +1,13 @@
+<launch>
+    <!--rosserial-->
+    <node pkg="rosserial_python" type="serial_node.py" name="ESP32_AD" respawn="true">
+        <param name="port" value="/dev/ESP32_NO1"/>
+        <param name="baud" value="115200"/>
+    </node>
+
+    <!--rosbag-->
+    <node pkg="rosbag" type="record" name="rosbag_record" output="screen" args="--all" />
+    
+    <!--rqt_plot-->
+    <node pkg="rqt_plot" type="rqt_plot" name="SensorAD" args="ros1_learning/SensorAD/ad_val" />
+</launch>
