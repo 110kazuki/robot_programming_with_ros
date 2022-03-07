@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>mecanum_control</name>
+  <name>ros1_learning</name>
   <version>2022.3.4</version>
   <description>The package for the independence control of mecanum rover (python)</description>
 
