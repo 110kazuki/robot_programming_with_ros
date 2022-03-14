@@ -1,6 +1,12 @@
+//For ESP32
 #undef ESP32
 #include <ros.h> //USB serial mode
 #define ESP32
+
+//For general arduino device
+//#include <ros.h> //USB serial mode
+
+
 #include "ros1_learning/SensorAD.h"
 
 //ros
@@ -16,7 +22,7 @@ int const sonsor_signal_pin = 34;
 
 void setup() {
   //ilitialize ros
-  nh.getHardware()->setBaud(115200);
+  nh.getHardware()->setBaud(57600);
   nh.initNode();
   nh.advertise(pub);
   //pin mode setting
