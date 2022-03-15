@@ -15,7 +15,7 @@ ROSで遊ぶにはUbuntu(Linux ディストリビューション)が欠かせな
     - Mac and Windows : Oracle VM VirtualBox
         > https://www.oracle.com/jp/virtualization/technologies/vm/downloads/virtualbox-downloads.html
 
-    今回はMac上ででVMware Fusion Playerを用いてUbuntuの仮想環境を構築する手順を説明するが，WindowsのVMware Workstation PlayerやOracle VM VirtualBoxでの環境構築の手順もほとんど同じである．  
+    今回はMac上でVMware Fusion Playerを用いてUbuntuの仮想環境を構築する手順を説明するが，WindowsのVMware Workstation PlayerやOracle VM VirtualBoxでの環境構築の手順もほとんど同じである．  
     また，Appleシリコン搭載のMacについては動作未検証である．
 
 1. UbuntuのOSイメージを用意  
