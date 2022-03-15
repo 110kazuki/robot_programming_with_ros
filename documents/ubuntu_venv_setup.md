@@ -128,7 +128,7 @@ ROSで遊ぶにはUbuntu(Linux ディストリビューション)が欠かせな
 
 
 # 環境構築のオプション
-- ホストPCとUbuntu仮想環境間のファイル共有
+- VMware Fusion PlayerでホストPCとUbuntu仮想環境間のファイル共有
     > http://verifiedby.me/adiary/0118  
 
 - VMware Fusion PlayerでUbuntu実行中に英数キーを押すとCaps Lockが有効になるのが鬱陶しい問題の解決
