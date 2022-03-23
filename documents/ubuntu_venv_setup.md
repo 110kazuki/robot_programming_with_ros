@@ -10,13 +10,18 @@ ROSで遊ぶにはUbuntu(Linux ディストリビューション)が欠かせな
     - Mac : VMware Fusion Player  
         VMware Fusion PlayerのダウンロードはVMwareのアカウントを登録し，個人ライセンスを取得する必要がある．
         また，取得した個人ライセンスはインストール時に必要なので，控えておく．
-        > https://customerconnect.vmware.com/web/vmware/evalcenter?p=fusion-player-personal
+        > https://customerconnect.vmware.com/web/vmware/evalcenter?p=fusion-player-personal  
 
         Apple Siliconを搭載したMacはbeta版が公開されているので，こちらをダウンロードして使用．
-        > https://customerconnect.vmware.com/downloads/get-download?downloadGroup=FUS-PUBTP-2021H1
+        > https://customerconnect.vmware.com/downloads/get-download?downloadGroup=FUS-PUBTP-2021H1  
 
-    - Mac and Windows : Oracle VM VirtualBox
-        > https://www.oracle.com/jp/virtualization/technologies/vm/downloads/virtualbox-downloads.html
+    - Mac and Windows : Oracle VM VirtualBox  
+        > https://www.oracle.com/jp/virtualization/technologies/vm/downloads/virtualbox-downloads.html  
+
+        Homebrewを使ってインストール(推奨)  
+        ```
+        $ brew install --cask virtualbox  
+        ```
 
     今回はMac上ででVMware Fusion Playerを用いてUbuntuの仮想環境を構築する手順を説明するが，WindowsのVMware Workstation PlayerやOracle VM VirtualBoxでの環境構築の手順もほとんど同じである．  
     また，Appleシリコン搭載のMacについては動作未検証である．
@@ -34,7 +39,7 @@ ROSで遊ぶにはUbuntu(Linux ディストリビューション)が欠かせな
         (サーバーはどこでもOK)
     
     - Ubuntu 20.04 LTS  
-        ひとまずROSを使ってみたい場合やROSのディストリビューションの制限がなければ，最新のROS Noeticが使える20.04LTSがお勧めである．ただし，システム要件がCPUが2GHz以上かつデュアルコア以上，メモリが4GB以上必要だとされているので，仮想環境を作成するPCがシステム要件の倍以上のスペックがない場合はお勧めできない．  
+        ひとまずROSを使ってみたい場合やROSのディストリビューションの制限がなければ，最新のROS NoeticやGalacticが使える20.04LTSがお勧めである．ただし，システム要件がCPUが2GHz以上かつデュアルコア以上，メモリが4GB以上必要だとされているので，仮想環境を作成するPCがシステム要件の倍以上のスペックがない場合はお勧めできない．  
         ダウンロード  
         Intel CPU :  
         > https://jp.ubuntu.com/download
@@ -120,6 +125,8 @@ ROSで遊ぶにはUbuntu(Linux ディストリビューション)が欠かせな
             > https://docs.ros.org/en/crystal/Installation/Linux-Install-Binary.html#system-requirements
         - ROS2 Foxy (Ubuntu 20.04)
             > https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Binary.html#system-requirements
+        - ROS2 Galactic (Ubuntu 20.04)
+            > https://docs.ros.org/en/foxy/Releases/Release-Galactic-Geochelone.html
     
     1. catkin ワークスペースのセットアップ(ROS1のみ)
         ROS1のビルドシステムであるcatkinでROSパッケージをコンパイルするための環境を以下の公式チュートリアルに従い整える．チュートリアルでは最初にインストールしたROSのディストリビューションを選択する．  
@@ -130,7 +137,7 @@ ROSで遊ぶにはUbuntu(Linux ディストリビューション)が欠かせな
         $ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
         ```
 
-        これで，Ubuntuの仮想環境作成とROS1の環境構築がすべて完了となる．  
+        これで，Ubuntuの仮想環境作成とROSの環境構築がすべて完了となる．  
         お疲れ様でした．
 
 
