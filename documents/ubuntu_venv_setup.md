@@ -12,6 +12,9 @@ ROSで遊ぶにはUbuntu(Linux ディストリビューション)が欠かせな
         また，取得した個人ライセンスはインストール時に必要なので，控えておく．
         > https://customerconnect.vmware.com/web/vmware/evalcenter?p=fusion-player-personal
 
+        Apple Siliconを搭載したMacはbeta版が公開されているので，こちらをダウンロードして使用．
+        > https://customerconnect.vmware.com/downloads/get-download?downloadGroup=FUS-PUBTP-2021H1
+
     - Mac and Windows : Oracle VM VirtualBox
         > https://www.oracle.com/jp/virtualization/technologies/vm/downloads/virtualbox-downloads.html
 
@@ -32,8 +35,12 @@ ROSで遊ぶにはUbuntu(Linux ディストリビューション)が欠かせな
     
     - Ubuntu 20.04 LTS  
         ひとまずROSを使ってみたい場合やROSのディストリビューションの制限がなければ，最新のROS Noeticが使える20.04LTSがお勧めである．ただし，システム要件がCPUが2GHz以上かつデュアルコア以上，メモリが4GB以上必要だとされているので，仮想環境を作成するPCがシステム要件の倍以上のスペックがない場合はお勧めできない．  
-        ダウンロード :  
+        ダウンロード  
+        Intel CPU :  
         > https://jp.ubuntu.com/download
+
+        Apple Silicon CPU : 
+        > https://ubuntu.com/download/server/arm
 
 
 1. 仮想マシンの作成
