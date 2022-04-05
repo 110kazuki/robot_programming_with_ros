@@ -25,7 +25,7 @@ void setup() {
 void loop() {
   //publish message
   str_msg.data = hello;
-  pub.publish( &hello );
+  pub.publish( &str_msg );
   
   nh.spinOnce();
   delay(1000);
