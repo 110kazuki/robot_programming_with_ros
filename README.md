@@ -30,7 +30,7 @@ ros1とESP32(もしくはarduinoデバイス)を使って簡単にデータの�
     $ sudo apt-get install ros-melodic-rosserial-arduino
     ```
     
-1. arduino用のros1ライブラリ(ros_lib)をコンパイル
+1. arduino用のros1ライブラリ(ros_lib)をコンパイル  
     ターミナルを二つ使用  
     ターミナル①  
     ```
