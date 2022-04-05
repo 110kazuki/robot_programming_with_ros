@@ -13,8 +13,8 @@
 ros::NodeHandle nh;
 
 //message
-ros1_learning::SensorAD.h sensor_ad;
-ros::Publisher pub("sensor_ad", &SensorAD);
+ros1_learning::SensorAD sensor_ad;
+ros::Publisher pub("sensor_ad", &sensor_ad);
 
 //pin
 int const sonsor_signal_pin = 34;
