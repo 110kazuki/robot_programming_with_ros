@@ -39,7 +39,7 @@ ros1とESP32(もしくはarduinoデバイス)を使って簡単にデータの�
     ターミナル②  
     ```
     $ cd ~/ros_lib
-    $ rosrun rosserial_arduino makelibraries.py .
+    $ rosrun rosserial_arduino make_libraries.py .
     ```
     ros_lib/内に新たにros_libというフォルダが作成される．
     このフォルダ内に様々なパッケージで使用されるメッセージのヘッダーファイルが保存されている．
