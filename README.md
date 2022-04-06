@@ -3,10 +3,18 @@
 本パッケージは，ROS1とESP32を組み合わせて，センサ情報の収集やモータ制御を伴うロボットシステムを構築する基本的なサンプルとチュートリアルを提供するものである．  
 このパッケージを使うためには，Ubuntu 18.04 LTS が実行できるPC（MacやWindows上で仮想環境も可)とEspressif Systems社のESP32マイコンが必要である． 
 
-ESP32マイコンは以下のデバイスがおすすめ．  
-ESP32-DevKitC-32E  
-> https://www.espressif.com/en/products/devkits/esp32-devkitc  
 
+本パッケージのチュートリアルに必要なものは以下である．
+- Ubuntu 18.04LTSを実行可能なパソコン(仮想環境も可)  
+- ESP32マイコン(Espressif Systems, ESP32-DevKitC-32Eを推奨)   
+    > https://www.espressif.com/en/products/devkits/esp32-devkitc   
+
+- ポテンショメータ  
+- DCモータ(ロータリーエンコーダ付きを推奨)  
+    > https://www.amazon.co.jp/dp/B07KFZ4M2M  
+- DCモータモータドライバ  
+- 5V => 3.3V レベルコンバータ  
+    > https://www.switch-science.com/catalog/1523/  
 
 # 初期設定
 1. ubuntu 18.04 LTSがインストールされたパソコン(仮想環境も可)を用意  
@@ -14,37 +22,37 @@ ESP32-DevKitC-32E
     また，ESP32をWi-Fi経由で仮想環境上のubuntuで動くrosと通信させる場合は，仮想環境を運用するホストPCがもつイーサネットやWi-Fiとは別にもう一つネットワークアダプタを用意すると便利である．
     Ubuntuの仮想環境の準備については，本パッケージのdocuments/ubuntu_venv_setup.mdを参照して欲しい．  
 
-1. ros1 melodicをインストール  
+2. ros1 melodicをインストール  
     > http://wiki.ros.org/melodic/Installation/Ubuntu  
 
-1. ros1の専用コンパイラであるcatkinを使うためのcatkin workspaceの作成  
+3. ros1の専用コンパイラであるcatkinを使うためのcatkin workspaceの作成  
     > http://wiki.ros.org/ja/catkin/Tutorials/create_a_workspace  
 
-1. catkin workscape内でコンパイルしたパッケージを有効にする
+4. catkin workscape内でコンパイルしたパッケージを有効にする
     ```
     $ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
     ```
     > http://wiki.ros.org/ja/ROS/Tutorials/InstallingandConfiguringROSEnvironment
 
-1. catkin workspace内にこのパッケージをclone
+5. catkin workspace内にこのパッケージをclone
     ```
     $ cd ~/catkin_ws/src
     $ git clone git@github.com:110kazuki/ros1_with_esp32.git
     ```
 
-1. rosserialのインストール  
+6. rosserialのインストール  
     ```  
     $ sudo apt-get install ros-melodic-rosserial
     $ sudo apt-get install ros-melodic-rosserial-arduino
     ```
 
-1. Arduino IDEをインストール  
+7. Arduino IDEをインストール  
     Arduinoの開発環境を準備する．
     開発環境はubuntu上に準備しても良いがやや難易度が高いため, 別のMacやWindows PCや仮想環境のホストPCにインストールすることをお勧めする.  
     以下のページからダウンロード  
     > https://www.arduino.cc/en/software  
 
-1. ESP32を使うためのArduinoライブラリをインストール  
+8. ESP32を使うためのArduinoライブラリをインストール  
     公式チュートリアルを参考にインストールを行う．
     > https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html  
 
@@ -59,10 +67,10 @@ ESP32-DevKitC-32E
     検索タブに"esp32"と入力し，Espressif Systemsのesp32の最新バージョンをインストールする．  
     ![ESP32 ext インストール](img/arduino_ide_esp_ext_install.png)  
 
-    最後に, [ツール]>[ボード:...]>[ESP32 Arduino]>[ESP32 Dev Module]を選択する．　　
+    最後に, [ツール]>[ボード:...]>[ESP32 Arduino]>[ESP32 Dev Module]を選択することで，Arduino IDEでESP32の開発を行うことができるようになる．
 
 
-1. arduino用のros1ライブラリ(ros_lib)をコンパイル  
+9. arduino用のros1ライブラリ(ros_lib)をコンパイル  
     ターミナルを二つ使用  
     ターミナル①  
     ```
@@ -76,7 +84,7 @@ ESP32-DevKitC-32E
     ~/arduino_ros_lib/ に新たにros_libというフォルダが作成される．
     このフォルダ内にArduino用の様々なパッケージで使用されるメッセージのヘッダーファイルが保存されている．
 
-1. コンパイルしたros_libをarduinoの開発を行うPCのarduino IDEのlibrariesディレクトリ内にコピー  
+10. コンパイルしたros_libをarduinoの開発を行うPCのarduino IDEのlibrariesディレクトリ内にコピー  
     windows  
     ```
     arduino IDEがインストールされたディレクトリ(Program files(x86など)/Arduino/libraries/~
@@ -411,18 +419,20 @@ sensor_data_publisher.inoは，ESP32でアナログセンサ（例えばポテ�
     #include <ros.h> //USB serial mode      //コメントアウト解除
     ```  
 
-    仮想環境上でarduino IDEをインストールしてESP32書き込みを行う場合は，`arduino_IDE/libraries/~`に直接ros_libを作成すると良い．
-    ```
-    ターミナル①
+    仮想環境上でarduino IDEをインストールしてESP32書き込みを行う場合は，`arduino_IDE/libraries/~`に直接ros_libを作成すると良い．  
+    ターミナル①  
+    ```  
     roscore
+    ```  
 
-    ターミナル②
+    ターミナル②  
+    ```  
     cd ~/arduino_IDE/libraries/ #arduino IDEをホームディレクトリにインストールし，フォルダ名がarduino_IDEの場合
     rosrun rosserial_arduino make_libraries.py .
-    ```
+    ```  
 
     ros_libを作成した後，roslibフォルダ内に`ros_lib/ros1_learning/SensorAD.h`が作成されていれば
-    自作メッセージをarduinoデバイスで用いることができるようになる．
+    自作メッセージをarduinoデバイスで用いることができるようになる．作成したros_libを[Arduino IDEのlibrariesディレクトリ](#初期設定10)に保存する．
 
 2. ESP32(もしくはarduinoデバイス)にスケッチを書き込む  
     ESP32をUSB経由でarduino IDEがインストールされたPCに接続し，sensor_data_publisher.inoをESP32に書き込む．
@@ -435,15 +445,15 @@ sensor_data_publisher.inoは，ESP32でアナログセンサ（例えばポテ�
 3. rosserialでESP32をノードとしてrosに接続  
     先に説明した手順[rosserialの使い方](#rosserialの使い方)に従い，rosserialでESP32を一つのノードとしてrosに接続する．  
     
-    ターミナル①
+    ターミナル①　　
     ```
     roscore
-    ```
+    ```  
 
-    ターミナル②
-    ```
+    ターミナル②  
+    ```  
     rosrun rosserial_python serial_node.py _port:=/dev/デバイス名 _baud:=57600
-    ```
+    ```  
 
 4. rqt_graphでESP32がノードとして働いていることを確認  
     ターミナル③
@@ -468,3 +478,8 @@ sensor_data_publisher.inoは，ESP32でアナログセンサ（例えばポテ�
     アナログセンサのシグナルをAD変換したデジタル値(12bit, 0~4095)が受信できていれば成功．  
 
     <font color="Red">|画像用意|</font>
+
+# モータを動かしてみる  
+
+int16 -100~100[%]で制御  
+Locked Anti-Phase方式で設計  
