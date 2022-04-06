@@ -283,7 +283,7 @@ ubuntuではarduinoデバイスをUSBシリアルで接続するたびに，許�
 ESP32から一定間隔で"Hello world!"というテキストをメッセージで送信し，ホストのubuntu PCで受け取ってみる．
 メッセージはトピック(ノード間における一方向で非同期方式のメッセージ送受信方式)で送信する．
 
-1. arduino IDEでパッケージ内の[/arduino/test_hello_world.ino](/arduino/test_hello_world.ino)をESP32に書き込む.
+1. arduino IDEでパッケージ内の[test_hello_world.ino](/arduino/test_hello_world/test_hello_world.ino)をESP32に書き込む.
 
 1. ESP32をubuntuにUSBで接続
 
