@@ -8,18 +8,18 @@
 - Ubuntu 18.04LTSを実行可能なパソコン(仮想環境も可)  
 - ESP32マイコン(Espressif Systems, ESP32-DevKitC-32Eを推奨)   
     > https://www.espressif.com/en/products/devkits/esp32-devkitc   
-
 - ポテンショメータ  
 - DCモータ(ロータリーエンコーダ付きを推奨)  
     > https://www.amazon.co.jp/dp/B07KFZ4M2M  
 - DCモータモータドライバ  
 - 5V => 3.3V レベルコンバータ  
     > https://www.switch-science.com/catalog/1523/  
+- Wi-FiアダプタもしくはLANアダプタ(仮想環境を用いる場合)  
 
 # 初期設定
 1. ubuntu 18.04 LTSがインストールされたパソコン(仮想環境も可)を用意  
     仮想環境を用いる場合はWindowsではvmware workstation player，macではvmware fusion playerなどのアプリケーションが必要となる．
-    また，ESP32をWi-Fi経由で仮想環境上のubuntuで動くrosと通信させる場合は，仮想環境を運用するホストPCがもつイーサネットやWi-Fiとは別にもう一つネットワークアダプタを用意すると便利である．
+    また，仮想環境上のubuntuで動くrosとESP32をWi-Fi経由で通信させる場合は，仮想環境を運用するホストPCがもつイーサネットやWi-Fiとは別にもう一つネットワークアダプタを用意すると便利である．
     Ubuntuの仮想環境の準備については，本パッケージのdocuments/ubuntu_venv_setup.mdを参照して欲しい．  
 
 2. ros1 melodicをインストール  
@@ -79,6 +79,7 @@
     ```
     ターミナル②  
     ```
+    $ mkdir ~/arduino_ros_lib
     $ cd ~/arduino_ros_lib
     $ rosrun rosserial_arduino make_libraries.py .
     ```
@@ -102,7 +103,7 @@
     ```
 
 # パッケージの作成とコンパイル　　 
-パッケージとは，ROSのコードを構成するソフトウエア構造の一単位である．各パッケージにはライブラリ、実行ファイルやスクリプト等が含まれる．  
+パッケージとは，ROSのコードを構成するソフトウエア構造の1単位である．各パッケージにはライブラリ、実行ファイルやスクリプト等が含まれる．  
 >  http://wiki.ros.org/ja/ROS/Tutorials/NavigatingTheFilesystem  
 
 パッケージのひな型はcatkinのコマンドを使って作成することができるが，プログラム内で使うライブラリにあわせてCMakeList.txt，package.xmlを編集する必要がある．
