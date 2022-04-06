@@ -8,19 +8,24 @@
 - Ubuntu 18.04LTSを実行可能なパソコン(仮想環境も可)  
 - ESP32マイコン(Espressif Systems, ESP32-DevKitC-32Eを推奨)   
     > https://www.espressif.com/en/products/devkits/esp32-devkitc   
-
 - ポテンショメータ  
 - DCモータ(ロータリーエンコーダ付きを推奨)  
     > https://www.amazon.co.jp/dp/B07KFZ4M2M  
 - DCモータモータドライバ  
 - 5V => 3.3V レベルコンバータ  
     > https://www.switch-science.com/catalog/1523/  
+- Wi-FiアダプタもしくはLANアダプタ(仮想環境を用いる場合)  
 
 # 初期設定
 1. ubuntu 18.04 LTSがインストールされたパソコン(仮想環境も可)を用意  
     仮想環境を用いる場合はWindowsではvmware workstation player，macではvmware fusion playerなどのアプリケーションが必要となる．
+<<<<<<< HEAD
     また，ESP32をWi-Fi経由で仮想環境上のubuntuで動くrosと通信させる場合は，仮想環境を運用するホストPCがもつイーサネットやWi-Fiとは別にもう一つネットワークアダプタを用意すると便利である．
     Ubuntuの仮想環境の準備については，本パッケージ内の[Ubuntuの仮想環境をつくる](documents/ubuntu_venv_setup.md)を参照して欲しい．  
+=======
+    また，仮想環境上のubuntuで動くrosとESP32をWi-Fi経由で通信させる場合は，仮想環境を運用するホストPCがもつイーサネットやWi-Fiとは別にもう一つネットワークアダプタを用意すると便利である．
+    Ubuntuの仮想環境の準備については，本パッケージのdocuments/ubuntu_venv_setup.mdを参照して欲しい．  
+>>>>>>> origin/main
 
 2. ros1 melodicをインストール  
     > http://wiki.ros.org/melodic/Installation/Ubuntu  
@@ -47,10 +52,11 @@
     ```
 
 7. Arduino IDEをインストール  
-    Arduinoの開発環境を準備する．
-    開発環境はubuntu上に準備しても良いがやや難易度が高いため, 別のMacやWindows PCや仮想環境のホストPCにインストールすることをお勧めする.  
-    以下のページからダウンロード  
+    Arduinoの開発環境を準備する． 
+    以下のページからUbuntu用のインストローラをダウンロードする．  
     > https://www.arduino.cc/en/software  
+    
+    ダウンロードされた圧縮ファイル(arduino-x.x.xx-linux64.tar.xz/arduino-x.x.xx)をhomeフォルダに解凍し，フォルダ名を分かりやすいように"arduino_ide"に変更しておく．
 
 8. ESP32を使うためのArduinoライブラリをインストール  
     公式チュートリアルを参考にインストールを行う．
@@ -78,13 +84,19 @@
     ```
     ターミナル②  
     ```
+    $ mkdir ~/arduino_ros_lib
     $ cd ~/arduino_ros_lib
     $ rosrun rosserial_arduino make_libraries.py .
     ```
     ~/arduino_ros_lib/ に新たにros_libというフォルダが作成される．
     このフォルダ内にArduino用の様々なパッケージで使用されるメッセージのヘッダーファイルが保存されている．
 
-10. コンパイルしたros_libをarduinoの開発を行うPCのarduino IDEのlibrariesディレクトリ内にコピー  
+10. コンパイルしたros_libをarduino IDEのlibrariesディレクトリ内にコピー  
+    ```
+    cp -r ~/arduino_ros_lib/ros_lib ~/arduino_ide/libraries/
+    ```
+    
+    ubuntu以外の環境でArduino IDEを使う場合はros_libフォルダを以下のディレクトリにコピーする．
     windows  
     ```
     arduino IDEがインストールされたディレクトリ(Program files(x86など)/Arduino/libraries/~
@@ -95,13 +107,8 @@
     Applications/Arduino/Contents/Java/libraries/~
     ```
 
-    ubuntu
-    ```
-    arduino_IDEを解凍したディレクトリ(arduino-1.8.19)/libraries/~
-    ```
-
 # パッケージの作成とコンパイル　　 
-パッケージとは，ROSのコードを構成するソフトウエア構造の一単位である．各パッケージにはライブラリ、実行ファイルやスクリプト等が含まれる．  
+パッケージとは，ROSのコードを構成するソフトウエア構造の1単位である．各パッケージにはライブラリ、実行ファイルやスクリプト等が含まれる．  
 >  http://wiki.ros.org/ja/ROS/Tutorials/NavigatingTheFilesystem  
 
 パッケージのひな型はcatkinのコマンドを使って作成することができるが，プログラム内で使うライブラリにあわせてCMakeList.txt，package.xmlを編集する必要がある．
