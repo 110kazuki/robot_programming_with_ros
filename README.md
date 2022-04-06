@@ -47,10 +47,11 @@
     ```
 
 7. Arduino IDEをインストール  
-    Arduinoの開発環境を準備する．
-    開発環境はubuntu上に準備しても良いがやや難易度が高いため, 別のMacやWindows PCや仮想環境のホストPCにインストールすることをお勧めする.  
-    以下のページからダウンロード  
+    Arduinoの開発環境を準備する． 
+    以下のページからUbuntu用のインストローラをダウンロードする．  
     > https://www.arduino.cc/en/software  
+    
+    ダウンロードされた圧縮ファイル(arduino-x.x.xx-linux64.tar.xz/arduino-x.x.xx)をhomeフォルダに解凍し，フォルダ名を分かりやすいように"arduino_ide"に変更しておく．
 
 8. ESP32を使うためのArduinoライブラリをインストール  
     公式チュートリアルを参考にインストールを行う．
@@ -84,7 +85,12 @@
     ~/arduino_ros_lib/ に新たにros_libというフォルダが作成される．
     このフォルダ内にArduino用の様々なパッケージで使用されるメッセージのヘッダーファイルが保存されている．
 
-10. コンパイルしたros_libをarduinoの開発を行うPCのarduino IDEのlibrariesディレクトリ内にコピー  
+10. コンパイルしたros_libをarduino IDEのlibrariesディレクトリ内にコピー  
+    ```
+    cp -r ~/arduino_ros_lib/ros_lib ~/arduino_ide/libraries/
+    ```
+    
+    ubuntu以外の環境でArduino IDEを使う場合はros_libフォルダを以下のディレクトリにコピーする．
     windows  
     ```
     arduino IDEがインストールされたディレクトリ(Program files(x86など)/Arduino/libraries/~
@@ -93,11 +99,6 @@
     mac
     ```
     Applications/Arduino/Contents/Java/libraries/~
-    ```
-
-    ubuntu
-    ```
-    arduino_IDEを解凍したディレクトリ(arduino-1.8.19)/libraries/~
     ```
 
 # パッケージの作成とコンパイル　　 
