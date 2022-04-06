@@ -87,7 +87,7 @@
     ~/arduino_ros_lib/ に新たにros_libというフォルダが作成される．
     このフォルダ内にArduino用の様々なパッケージで使用されるメッセージのヘッダーファイルが保存されている．
 
-10. コンパイルしたros_libをarduino IDEのlibrariesディレクトリ内にコピー  
+10. 作成したros_libをarduino IDEのlibrariesディレクトリ内にコピー  
     ```
     cp -r ~/arduino_ros_lib/ros_lib ~/arduino_ide/libraries/
     ```
@@ -283,7 +283,7 @@ ubuntuではarduinoデバイスをUSBシリアルで接続するたびに，許�
 ESP32から一定間隔で"Hello world!"というテキストをメッセージで送信し，ホストのubuntu PCで受け取ってみる．
 メッセージはトピック(ノード間における一方向で非同期方式のメッセージ送受信方式)で送信する．
 
-1. arduino IDEでパッケージ内の/arduino/test_hello_world.inoをESP32に書き込む.
+1. arduino IDEでパッケージ内の[/arduino/test_hello_world.ino](/arduino/test_hello_world.ino)をESP32に書き込む.
 
 1. ESP32をubuntuにUSBで接続
 
