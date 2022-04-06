@@ -4,7 +4,7 @@
 このパッケージを使うためには，Ubuntu 18.04 LTS が実行できるPC（MacやWindows上で仮想環境も可)とEspressif Systems社のESP32マイコンが必要である． 
 
 
-本パッケージのチュートリアルに必要なものは以下である．
+チュートリアルには以下のものが必要．
 - Ubuntu 18.04LTSを実行可能なパソコン(仮想環境も可)  
 - ESP32マイコン(Espressif Systems, ESP32-DevKitC-32Eを推奨)   
     > https://www.espressif.com/en/products/devkits/esp32-devkitc   
@@ -20,15 +20,15 @@
 1. ubuntu 18.04 LTSがインストールされたパソコン(仮想環境も可)を用意  
     仮想環境を用いる場合はWindowsではvmware workstation player，macではvmware fusion playerなどのアプリケーションが必要となる．
     また，ESP32をWi-Fi経由で仮想環境上のubuntuで動くrosと通信させる場合は，仮想環境を運用するホストPCがもつイーサネットやWi-Fiとは別にもう一つネットワークアダプタを用意すると便利である．
-    Ubuntuの仮想環境の準備については，本パッケージのdocuments/ubuntu_venv_setup.mdを参照して欲しい．  
+    Ubuntuの仮想環境の準備については，本パッケージ内の[Ubuntuの仮想環境をつくる](documents/ubuntu_venv_setup.md)を参照して欲しい．  
 
 2. ros1 melodicをインストール  
     > http://wiki.ros.org/melodic/Installation/Ubuntu  
 
-3. ros1の専用コンパイラであるcatkinを使うためのcatkin workspaceの作成  
+3. ros1のコンパイラであるcatkinでROSのパッケージをコンパイルするためのcatkin workspaceの作成  
     > http://wiki.ros.org/ja/catkin/Tutorials/create_a_workspace  
 
-4. catkin workscape内でコンパイルしたパッケージを有効にする
+4. Ubuntuのターミナルでcatkin workscape内でコンパイルしたパッケージを有効にする
     ```
     $ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
     ```
@@ -71,7 +71,7 @@
 
 
 9. arduino用のros1ライブラリ(ros_lib)をコンパイル  
-    ターミナルを二つ使用  
+    ターミナルを2つ使用  
     ターミナル①  
     ```
     $ roscore
