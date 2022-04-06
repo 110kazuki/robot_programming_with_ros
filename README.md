@@ -19,13 +19,9 @@
 # 初期設定
 1. ubuntu 18.04 LTSがインストールされたパソコン(仮想環境も可)を用意  
     仮想環境を用いる場合はWindowsではvmware workstation player，macではvmware fusion playerなどのアプリケーションが必要となる．
-<<<<<<< HEAD
+
     また，ESP32をWi-Fi経由で仮想環境上のubuntuで動くrosと通信させる場合は，仮想環境を運用するホストPCがもつイーサネットやWi-Fiとは別にもう一つネットワークアダプタを用意すると便利である．
     Ubuntuの仮想環境の準備については，本パッケージ内の[Ubuntuの仮想環境をつくる](documents/ubuntu_venv_setup.md)を参照して欲しい．  
-=======
-    また，仮想環境上のubuntuで動くrosとESP32をWi-Fi経由で通信させる場合は，仮想環境を運用するホストPCがもつイーサネットやWi-Fiとは別にもう一つネットワークアダプタを用意すると便利である．
-    Ubuntuの仮想環境の準備については，本パッケージのdocuments/ubuntu_venv_setup.mdを参照して欲しい．  
->>>>>>> origin/main
 
 2. ros1 melodicをインストール  
     > http://wiki.ros.org/melodic/Installation/Ubuntu  
