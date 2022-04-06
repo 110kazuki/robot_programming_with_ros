@@ -1,10 +1,18 @@
 ﻿# ros1_with_esp32
 
-ros1とESP32(もしくはarduinoデバイス)を使って簡単にデータのやり取りを行ってみるサンプル
+本パッケージは，ROS1とESP32を組み合わせて，センサ情報の収集やモータ制御を伴うロボットシステムを構築する基本的なサンプルとチュートリアルを提供するものである．  
+このパッケージを使うためには，Ubuntu 18.04 LTS が実行できるPC（MacやWindows上で仮想環境も可)とEspressif Systems社のESP32マイコンが必要である． 
+
+ESP32マイコンは以下のデバイスがおすすめ．  
+ESP32-DevKitC-32E  
+> https://www.espressif.com/en/products/devkits/esp32-devkitc  
+
 
 # 初期設定
 1. ubuntu 18.04 LTSがインストールされたパソコン(仮想環境も可)を用意  
-    仮想環境を用いる場合はWindowsではvmware workstation player，macではvmware fusion playerなどのアプリケーションが必要となる．また，ESP32をWi-Fi経由で仮想環境上のubuntuで動くrosと通信させる場合は，仮想環境を運用するホストPCがもつイーサネットやWi-Fiとは別にもう一つネットワークアダプタを用意すると便利である．
+    仮想環境を用いる場合はWindowsではvmware workstation player，macではvmware fusion playerなどのアプリケーションが必要となる．
+    また，ESP32をWi-Fi経由で仮想環境上のubuntuで動くrosと通信させる場合は，仮想環境を運用するホストPCがもつイーサネットやWi-Fiとは別にもう一つネットワークアダプタを用意すると便利である．
+    Ubuntuの仮想環境の準備については，本パッケージのdocuments/ubuntu_venv_setup.mdを参照して欲しい．  
 
 1. ros1 melodicをインストール  
     > http://wiki.ros.org/melodic/Installation/Ubuntu  
@@ -29,7 +37,31 @@ ros1とESP32(もしくはarduinoデバイス)を使って簡単にデータの�
     $ sudo apt-get install ros-melodic-rosserial
     $ sudo apt-get install ros-melodic-rosserial-arduino
     ```
-    
+
+1. Arduino IDEをインストール  
+    Arduinoの開発環境を準備する．
+    開発環境はubuntu上に準備しても良いがやや難易度が高いため, 別のMacやWindows PCや仮想環境のホストPCにインストールすることをお勧めする.  
+    以下のページからダウンロード  
+    > https://www.arduino.cc/en/software  
+
+1. ESP32を使うためのArduinoライブラリをインストール  
+    公式チュートリアルを参考にインストールを行う．
+    > https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html  
+
+    Arduino IDEの[Arduino]タブ内の環境設定を開き, [追加のボードマネージャーのURL]に以下のURLを入力し[OK]をクリックする.  
+    ![Arduino IDE 環境設定](img/arduino_ide_pref_esp32_link.png)
+    ```
+    https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+    ```  
+    続いて，[ツール]>[ボード:...]>[ボードマネージャ...]の順にクリックし，ボードマネージャを開く．
+    ![Arduino IDE ボードマネージャ](img/arduino_ide_open_board_manager.png)
+
+    検索タブに"esp32"と入力し，Espressif Systemsのesp32の最新バージョンをインストールする．  
+    ![ESP32 ext インストール](img/arduino_ide_esp_ext_install.png)  
+
+    最後に, [ツール]>[ボード:...]>[ESP32 Arduino]>[ESP32 Dev Module]を選択する．　　
+
+
 1. arduino用のros1ライブラリ(ros_lib)をコンパイル  
     ターミナルを二つ使用  
     ターミナル①  
@@ -38,11 +70,11 @@ ros1とESP32(もしくはarduinoデバイス)を使って簡単にデータの�
     ```
     ターミナル②  
     ```
-    $ cd ~/ros_lib
+    $ cd ~/arduino_ros_lib
     $ rosrun rosserial_arduino make_libraries.py .
     ```
-    ros_lib/内に新たにros_libというフォルダが作成される．
-    このフォルダ内に様々なパッケージで使用されるメッセージのヘッダーファイルが保存されている．
+    ~/arduino_ros_lib/ に新たにros_libというフォルダが作成される．
+    このフォルダ内にArduino用の様々なパッケージで使用されるメッセージのヘッダーファイルが保存されている．
 
 1. コンパイルしたros_libをarduinoの開発を行うPCのarduino IDEのlibrariesディレクトリ内にコピー  
     windows  
@@ -244,7 +276,7 @@ ESP32から一定間隔で"Hello world!"というテキストをメッセージ�
 
 1. ESP32をubuntuにUSBで接続
 
-1. rosserialでESP32に接続
+1. rosserialでESP32に接続  
     ターミナル①  
     ```
     $ roscore
