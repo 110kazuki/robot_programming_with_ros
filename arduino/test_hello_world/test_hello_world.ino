@@ -17,7 +17,7 @@ ros::Publisher pub("chatter", &str_msg); //"chatter" is the name of the topic (m
 char hello[13] = "hello world!";
 
 void setup() {
-  nh.getHardware()->setBaud(115200);
+  nh.getHardware()->setBaud(57600));
   nh.initNode();
   nh.advertise(pub);
 }

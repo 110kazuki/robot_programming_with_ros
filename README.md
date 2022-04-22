@@ -1,7 +1,8 @@
 ﻿# ros1_with_esp32
 
 本パッケージは，ROS1とESP32を組み合わせて，センサ情報の収集やモータ制御を伴うロボットシステムを構築する基本的なサンプルとチュートリアルを提供するものである．  
-このパッケージを使うためには，Ubuntu 18.04 LTS が実行できるPC（MacやWindows上で仮想環境も可)とEspressif Systems社のESP32マイコンが必要である． 
+このパッケージを使うためには，Ubuntu 18.04 LTS が実行できるPC（MacやWindows上で仮想環境も可)とEspressif Systems社のArduino互換のマイコンであるESP32が必要である． 
+ネットワークを介した通信が必要ない場合はArduinoデバイスで代用することも可能である．
 
 
 チュートリアルには以下のものが必要．
@@ -87,21 +88,20 @@
     ~/arduino_ros_lib/ に新たにros_libというフォルダが作成される．
     このフォルダ内にArduino用の様々なパッケージで使用されるメッセージのヘッダーファイルが保存されている．
 
-10. 作成したros_libをarduino IDEのlibrariesディレクトリ内にコピー  
+10. 作成したros_libをArduino IDEのlibrariesディレクトリ内にコピー  
     ```
     cp -r ~/arduino_ros_lib/ros_lib ~/arduino_ide/libraries/
     ```
     
-    ubuntu以外の環境でArduino IDEを使う場合はros_libフォルダを以下のディレクトリにコピーする．
-    windows  
-    ```
-    arduino IDEがインストールされたディレクトリ(Program files(x86など)/Arduino/libraries/~
-    ```
-
-    mac
-    ```
-    Applications/Arduino/Contents/Java/libraries/~
-    ```
+    ubuntu以外の環境でArduino IDEを使う場合はros_libフォルダを以下のディレクトリにコピーする．  
+    - windows  
+        ```
+        arduino IDEがインストールされたディレクトリ(Program files(x86など)/Arduino/libraries/~
+        ```
+    - mac
+        ```
+        Applications/Arduino/Contents/Java/libraries/~
+        ```
 
 # パッケージの作成とコンパイル　　 
 パッケージとは，ROSのコードを構成するソフトウエア構造の1単位である．各パッケージにはライブラリ、実行ファイルやスクリプト等が含まれる．  
@@ -175,8 +175,9 @@ rosserialは、シリアル通信経由でROSのメッセージをホストPCと
 USB接続でのシリアル通信だけでなく，Wi-Fiを利用したシリアル通信も行うことができる．
 > http://wiki.ros.org/ja/rosserial
 
-- ubuntuでarduinoをUSBシリアル経由で扱うための前準備  
-ubuntuではarduinoデバイスをUSBシリアルで接続するたびに，許可属性(アクセス権限)を付与する必要がある. これを行わない限りスケッチの書き込みやシリアルポートを利用できない．
+- ubuntuでESP32をUSBシリアル経由で扱うための前準備  
+ubuntuではESP32などのArduinoデバイスをUSBシリアルで接続するたびに許可属性(アクセス権限)を付与する必要がある. 
+これを行わない限りスケッチの書き込みやシリアルポートを利用できない．
 許可属性の設定を行うのは面倒なので，自動で許可属性が設定されるようにする． 
     
     1. arduinoデバイスをUSBケーブルでubuntuに接続している場合はケーブルを抜く
@@ -196,7 +197,7 @@ ubuntuではarduinoデバイスをUSBシリアルで接続するたびに，許�
 
         ![dmeshスクショ](img/dmesg_new_serial_device.png)
 
-        この時はESP32を接続するとデバイス名が"ttyUSB0"となった．  
+        この時はESP32-DevKitC-32Eを接続するとデバイス名が"ttyUSB0"となった．  
         念のため,ハードウェアデバイスが登録されているディレクトリ /dev/~　にも確認したデバイス名が存在するかチェック
         ```
         $ ls /dev/ttyUSB* #ttyACM*の場合は /dev/ttyACM*
@@ -207,7 +208,7 @@ ubuntuではarduinoデバイスをUSBシリアルで接続するたびに，許�
         /dev/ttyUSB0が存在していることが確認できる.
     
     1. 一時的な許可属性の付与  
-        arduinoデバイスの接続を解除するまで有効な許可属性の付与は以下のコマンドで行うことができる．
+        ESP32の接続を解除するまで有効な許可属性の付与は以下のコマンドで行うことができる．
         ```
         $ sudo chmod 666 /dev/ttyUSB* # *部分は確認したデバイス名と一致させる
         ```
@@ -294,9 +295,8 @@ ESP32から一定間隔で"Hello world!"というテキストをメッセージ�
     ```
 
     ターミナル②  
-    デバイス名は先にudev設定ファイルで設定したもの，_baud:=xxxのxxx部分はarduinoのスケッチ内で設定されているシリアルのボーレートと一致させる．
     ```
-    rosrun rosserial_python serial_node.py _port:=/dev/デバイス名 _baud:=xxx
+    $ rosrun rosserial_python serial_node.py _port:=/dev/デバイス名 _baud:=57600 #デバイス名は先にudev設定ファイルで設定したもの
     ```
 
 1. ESP32からメッセージが配信されているかを確認  
@@ -371,15 +371,15 @@ ros1では様々な形式のメッセージ型があらかじめ用意されて�
         > https://qiita.com/srs/items/7ac023c549e585caeed0
 
     本パッケージに収録しているCMakeList.txtとpackage.xmlはメッセージをコンパイルするための修正を加えている．
-    パッケージのコンパイルは次のコマンドでおこなう.
 
-    - package.xmlへの追記
+    package.xmlへの追記
     
     ```
     <build_depend>message_generation</build_depend>
     <exec_depend>message_runtime</exec_depend>
-    ```
+    ```  
 
+    パッケージのコンパイルは次のコマンドでおこなう.
     ```
     $ cd ~/catkin_ws
     $ catkin_make
@@ -435,15 +435,12 @@ sensor_data_publisher.inoは，ESP32でアナログセンサ（例えばポテ�
     ```  
 
     ros_libを作成した後，roslibフォルダ内に`ros_lib/ros1_learning/SensorAD.h`が作成されていれば
-    自作メッセージをarduinoデバイスで用いることができるようになる．作成したros_libを[Arduino IDEのlibrariesディレクトリ](#初期設定10)に保存する．
+    自作メッセージをArduinoデバイスで用いることができるようになる．作成したros_libを[Arduino IDEのlibrariesディレクトリ](#初期設定)に保存する．
 
-2. ESP32(もしくはarduinoデバイス)にスケッチを書き込む  
-    ESP32をUSB経由でarduino IDEがインストールされたPCに接続し，sensor_data_publisher.inoをESP32に書き込む．
-    このとき，ESP32をarduino IDEで使用するためにはESP32用のライブラリを追加でのインストールしておく必要がある．
-    詳しくはこちら :  
-    > https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html  
+2. ESP32の準備
+    ESP32-DevKitC-32Eの34ピンにポテンショメータなどのアナログセンサのシグナル線を接続する．また，センサの動作に必要な線(VCC, GNDなど)も接続しておく．
+    アナログセンサの配線が完了したら，Arduino IDEでESP32に[sensor_data_publisher.ino](arduino/seosor_data_publisher/seosor_data_publisher.ino)をESP32に書き込む．
 
-    書き込みが完了したら，仮想環境上にESP32を接続する．(仮想環境以外でarduin IDEでESP32へ書き込みを行なった場合)
 
 3. rosserialでESP32をノードとしてrosに接続  
     先に説明した手順[rosserialの使い方](#rosserialの使い方)に従い，rosserialでESP32を一つのノードとしてrosに接続する．  
