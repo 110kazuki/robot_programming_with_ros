@@ -324,6 +324,9 @@ ESP32から一定間隔で"Hello world!"というテキストをメッセージ�
 - `rostopic hz /topic_name`  
 配信されている特定のトピックがどの程度の周期で配信されているかを確認することができる．
 
+- `rostopic pub /topic_name package/message_type value`  
+メッセージを手動で配信するコマンド
+
 rostopicにはその他にも様々な機能がある  
 > http://wiki.ros.org/rostopic
 
@@ -479,7 +482,58 @@ sensor_data_publisher.inoは，ESP32でアナログセンサ（例えばポテ�
 
     <font color="Red">|画像用意|</font>
 
-# モータを動かしてみる  
+# DCモータを動かしてみる  
+ESP32にモータドライバを接続し，PWMを使ってDCモータを回転させてみる．  
 
-int16 -100~100[%]で制御  
-Locked Anti-Phase方式で設計  
+<font color="Red">[注意]</font>  
+DCモータは高い電流・電圧を入力で扱うため以下の点に注意する  
+- 回路に配線ミスや短絡が起こるとESP32やパソコンを損傷する可能性があるので，配線を十分に確認すること．  
+- モータドライバやDCモータの仕様以上の電圧を印加しない．
+- モータドライバのモータ電源入力と電源の間に非常停止スイッチなどを入れておくことを推奨する．  
+
+1. ESP32にモータドライバ制御用のスケッチを書き込む  
+    モータドライバによってDCモータの制御方法が異なるため，使用するモータドライバの仕様を確認し，本パッケージの`/arduino/motor_control/~`からモータドライバに合わせたスケッチを選択しESP32に書き込む．  
+    モータドライバの制御方式の種類については以下を参考にしてほしい．  
+    > https://tattatatakemori.hatenablog.com/entry/2017/07/20/232827  
+
+    - Sign/Magnitude/Break PWM方式，SparkFun ROB-1445，TOSHIBA TA7291P など  <font color="Red">(サポート予定)</font>  
+        使用するスケッチ : `arduino/motor_control/motor_control_type_smb/motor_control_type_smb.ino`
+
+    - Locked Anti-Phase PWM方式  
+        使用するスケッチ : `arduino/motor_control/motor_control_type_smb/motor_control_type_lap.ino`
+
+        ESCONシリーズ (DCモータドライバ)を使い場合は以下　　  
+        `arduino/motor_control/motor_control_type_smb/motor_control_escon.ino`
+
+    なお，モータドライバの仕様によってPWMの周波数や使用するデューティ比のレンジ，回転方向を指定するピンの印加電圧(HIGH/LOW)を調整する必要がある．
+    また，高機能なモータドライバにはPWMや回転方向の制御入力以外に，モータドライバの有効/無効をデジタル入力などで指定する必要があるものもある(maxon motor社のESCONシリーズなど）ので注意して欲しい．
+
+    本チュートリアルでおすすめのモータドライバを紹介しておく.  
+    - Cytron 4V～16V DCモータードライバ（Sign/Magnitude/Break PWM方式)
+        > https://www.switch-science.com/catalog/5521/
+    - SmartDriveDuo-10 (Sign/Magnitude/Break PWM方式/Locked Anti-Phase PWM方式)
+        > https://www.switch-science.com/catalog/3608/
+
+2. 配線を行う
+3. rosからモータの司令値を配信する  
+    
+    ターミナル① roscoreを起動
+    ```
+    roscore
+    ```
+    
+    ターミナル② rosserialでESP32をrosに接続
+    ```
+    rosrun rosserial_python serial_node.py _port:=/dev/デバイス名 _baud:=57600
+    ```
+
+    ターミナル③ モータの司令値を配信  
+    最後の引数の整数値はモータの回転速度を-100~100の整数値で指定する．  
+        逆転 : -100(最大速度) ~ 0(停止)  
+        正転 : 0(停止) ~ 100(最大速度)  
+
+    ```
+    rostopic pub motor_ctrl std_msgs/Int16 50 #最後の引数は-100~100の任意の整数
+    ```
+
+
