@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
-import std_msgs.msg import Int16
+from std_msgs.msg import Int16
 import keyboard
 
 def gen_cmd():

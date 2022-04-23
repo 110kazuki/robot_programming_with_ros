@@ -37,15 +37,17 @@
     > http://wiki.ros.org/ja/ROS/Tutorials/InstallingandConfiguringROSEnvironment
 
 5. catkin workspace内にこのパッケージをclone
+    本パッケージは`ros1_learning`という名前である．
     ```
     $ cd ~/catkin_ws/src
     $ git clone git@github.com:110kazuki/ros1_with_esp32.git
     ```
+    `~/catkin_ws/src/ros1_with_esp32-main` が作成される．
 
 6. rosserialのインストール  
     ```  
-    $ sudo apt-get install ros-melodic-rosserial
-    $ sudo apt-get install ros-melodic-rosserial-arduino
+    $ sudo apt-get install ros-$(rosversion -d)-rosserial
+    $ sudo apt-get install ros-$(rosversion -d)-rosserial-aduino
     ```
 
 7. Arduino IDEをインストール  
@@ -167,6 +169,10 @@ CMakeList.txt，package.xmlに関してはこちらの記事がわかりやす�
     特定のパッケージのみをコンパイルする場合は以下のコマンドを実行する．  
     ```
     $ catkin_make --only-pkg-with-deps target_package_name
+    ```
+    たとえば，このパッケージだけをコンパイルするなら
+    ```
+    $ catkin_make --only-pkg-with-deps ros1_learning
     ```
 
 
@@ -482,8 +488,8 @@ sensor_data_publisher.inoは，ESP32でアナログセンサ（例えばポテ�
 
     <font color="Red">|画像用意|</font>
 
-# DCモータを動かしてみる  
-ESP32にモータドライバを接続し，PWMを使ってDCモータを回転させてみる．  
+# DCモータを回転させてみる    
+ESP32にモータドライバを接続し，PWM信号でモータドライバを制御してDCモータを回転させてみる．  
 
 <font color="Red">[注意]</font>  
 DCモータは高い電流・電圧を入力で扱うため以下の点に注意する  
@@ -491,6 +497,7 @@ DCモータは高い電流・電圧を入力で扱うため以下の点に注意
 - モータドライバやDCモータの仕様以上の電圧を印加しない．
 - モータドライバのモータ電源入力と電源の間に非常停止スイッチなどを入れておくことを推奨する．  
 
+## モータドライバの出力を指定して，DCモータを回転させる  
 1. ESP32にモータドライバ制御用のスケッチを書き込む  
     モータドライバによってDCモータの制御方法が異なるため，使用するモータドライバの仕様を確認し，本パッケージの`/arduino/motor_control/~`からモータドライバに合わせたスケッチを選択しESP32に書き込む．  
     モータドライバの制御方式の種類については以下を参考にしてほしい．  
@@ -515,6 +522,25 @@ DCモータは高い電流・電圧を入力で扱うため以下の点に注意
         > https://www.switch-science.com/catalog/3608/
 
 2. 配線を行う
+    ESP32とモータドライバ間の配線ミスや短絡に十分注意して配線を行う．  
+    モータドライバとESP32間の配線は使用するスケッチによって異なる．
+
+    [Sign/Magnitude/Break PWM方式]
+
+    <font color="Red">(サポート予定)</font> 
+    |信号線 |ピン番号|
+    |:---  | :---: |
+    |PWM   |   17  |
+    |      |       |
+
+
+    [Locked Anti-Phase PWM方式]
+
+    |信号線 |ピン番号|
+    |:---  | :---: |
+    |PWM   |   17  |
+    |Enable|   18  |
+
 3. rosからモータの司令値を配信する  
     
     ターミナル① roscoreを起動
@@ -536,4 +562,18 @@ DCモータは高い電流・電圧を入力で扱うため以下の点に注意
     rostopic pub motor_ctrl std_msgs/Int16 50 #最後の引数は-100~100の任意の整数
     ```
 
+## キーボード入力でモータの司令値を変更する<font color="Red">(作成中)</font> 　
+前項で手動で配信したモータの回転速度を司令するメッセージの代わりに，キーボードの入力で司令値を変化させるノードで司令値を配信してモータの回転速度を変化させてみる．
+
+1. rosパッケージをコンパイル  
+    ```
+    $ cd catkin_ws
+    $ catkin_make --only-pkg-with-deps ros1_learning
+    % roscd ros1_learining/scripts
+    % sudo chmod +x motor_cmd_key.py
+    ```
+2. キーボード入力をpythonで受け取るためのライブラリをインストール
+    ```
+    $ sudo pip install keyboard
+    ```
 

@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="ros1_learning" type="scripts/motor_cmd_key.py" name="motor_ctrl" launch-prefix="sudo"/>
+</launch>
