@@ -562,18 +562,37 @@ DCモータは高い電流・電圧を入力で扱うため以下の点に注意
     rostopic pub motor_ctrl std_msgs/Int16 50 #最後の引数は-100~100の任意の整数
     ```
 
-## キーボード入力でモータの司令値を変更する<font color="Red">(作成中)</font> 　
+## キーボード入力でモータの司令値を変更する
 前項で手動で配信したモータの回転速度を司令するメッセージの代わりに，キーボードの入力で司令値を変化させるノードで司令値を配信してモータの回転速度を変化させてみる．
 
 1. rosパッケージをコンパイル  
+    キーボード入力でモータの司令値を変化させるノードは`motor_cmd_key`でC++で実装されている．
+    ソースファイルは本パッケージの`src/motor_cmd_key.cpp`．  
     ```
     $ cd catkin_ws
     $ catkin_make --only-pkg-with-deps ros1_learning
-    % roscd ros1_learining/scripts
-    % sudo chmod +x motor_cmd_key.py
     ```
-2. キーボード入力をpythonで受け取るためのライブラリをインストール
+2. ノードを起動  
+    ターミナル① roscoreの起動    
     ```
-    $ sudo pip install keyboard
-    ```
+    $ roscore
+    ````
 
+    ターミナル② rosserialを起動してESP32をrosに接続    
+    ```
+    $ rosrun rosserial_python serial_node.py _port:=/dev/デバイス名 _baud:=57600
+    ```
+    
+    ターミナル③ `motor_cmd_key`ノードを起動   
+    ```
+    $ rosrun ros1_learning motor_cmd_key
+    ```  
+    ターミナル④ 司令値のメッセージ(/motor_ctrl)を確認  
+    ```
+    $ rostopic echo /motor_ctrl
+    ```
+    [ `motor_cmd_key`ノードの操作方法 ]  
+
+    - 上・下の矢印キーで司令値を5%ずつ変化
+    - スペースキーで司令値が0% (緊急停止)
+    - q でノードを終了

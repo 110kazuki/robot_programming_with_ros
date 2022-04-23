@@ -1,6 +1,5 @@
-/*
-Reference : https://hotnews8.net/programming/tricky-code/c-code03
-
+/* 
+    Reference : https://hotnews8.net/programming/tricky-code/c-code03
 */
 
 #include <ros/ros.h>

@@ -1,3 +1,8 @@
 <launch>
-    <node pkg="ros1_learning" type="scripts/motor_cmd_key.py" name="motor_ctrl" launch-prefix="sudo"/>
+    <node pkg="rosserial_python" type="serial_node.py" name="ESP32_AD" respawn="true">
+        <param name="port" value="/dev/ESP32_NO1"/>
+        <param name="baud" value="57600"/>
+    </node>
+
+    <node pkg="ros1_learning" type="motor_cmd_key" name="motor_ctrl" launch-prefix="sudo"/>
 </launch>

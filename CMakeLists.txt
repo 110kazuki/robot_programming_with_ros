@@ -50,18 +50,14 @@ include_directories(
 
 #add_library(${PROJECT_NAME} ${${PROJECT_NAME}_SRCS})
 
-add_executable(cpp_minimum src/cpp_minimum_script.cpp)
-target_link_libraries(cpp_minimum ${catkin_LIBRARIES})
+#add_executable(cpp_minimum src/cpp_minimum_script.cpp)
+#target_link_libraries(cpp_minimum ${catkin_LIBRARIES})
 
 add_executable(motor_cmd_key src/motor_cmd_key.cpp)
 target_link_libraries(motor_cmd_key ${catkin_LIBRARIES})
 add_dependencies(motor_cmd_key motor_cmd_key_cpp)
 
-
-
-
-
 ## Generate node (python)
 #catkin_install_python(PROGRAMS 
-#  scripts/joy_con.py
+#  scripts/sample.py
 #  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

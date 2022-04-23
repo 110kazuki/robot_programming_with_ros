@@ -2,7 +2,7 @@
     <!--rosserial-->
     <node pkg="rosserial_python" type="serial_node.py" name="ESP32_AD" respawn="true">
         <param name="port" value="/dev/ESP32_NO1"/>
-        <param name="baud" value="115200"/>
+        <param name="baud" value="57600"/>
     </node>
 
     <!--rosbag-->
