@@ -29,7 +29,7 @@ def status_print(motor_cmd_param):
     print('==============================')
     print('motor speed : %d [%]' %motor_cmd_param)
 
-    
+
 if __name__ == '__main__':
     try:
         gen_cmd()
