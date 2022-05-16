@@ -28,7 +28,6 @@ ros::NodeHandle nh;
 
 void messageCb( const std_msgs::Int16& ctrl_msg ){
   motor_cmd = ctrl_msg.data/100.0;
-
 }
 
 //subscriber

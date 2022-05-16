@@ -29,7 +29,7 @@ int PWM_duty_range = (pow( 2, PWM_RESOLUTION )-1) * (PWM_duty_limit_under + (100
 ros::NodeHandle nh;
 
 void messageCb( const std_msgs::Int16& ctrl_msg ){
-  motor_cmd = (ctrl_msg.data+100.0)/2.0;
+  motor_cmd = ctrl_msg.data/100.0;
 }
 
 //subscriber
