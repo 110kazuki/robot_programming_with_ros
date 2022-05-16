@@ -27,7 +27,7 @@ int pwm_cmd   = 0;
 ros::NodeHandle nh;
 
 void messageCb( const std_msgs::Int16& ctrl_msg ){
-  motor_cmd = ctrl_msg.data/100.0;
+  motor_cmd = ctrl_msg.data/100.0; //-100~100 => -1 ~ 1
 }
 
 //subscriber
@@ -55,10 +55,10 @@ void setup() {
 void loop() {
   if ( nh.connected() ){
     //convert motor command to duty ratio
-    pwm_cmd = constrain( motor_cmd * 409.2, 103, 920 );
+    pwm_cmd = constrain( motor_cmd * 409.2 + 511, 103, 920 ); //-1~1 => -409.2 ~ 409.2
 
     digitalWrite( MOTOR_EN_PIN, HIGH );
-    ledcWrite( MOTOR_0, 511 + pwm_cmd );    
+    ledcWrite( MOTOR_0, pwm_cmd );    
 
   }else{
     pwm_cmd = 511;
