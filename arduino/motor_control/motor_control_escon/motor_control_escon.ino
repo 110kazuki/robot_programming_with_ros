@@ -20,7 +20,7 @@
 
 #define MOTOR_0        0    //PWM channel
 
-int motor_cmd = 0;         // motor command speed, specified as an integer value from -100 to 100.
+double motor_cmd = 0;         // motor command speed, specified as an integer value from -100 to 100.
 int pwm_cmd   = 0;         
 
 //ros setting
