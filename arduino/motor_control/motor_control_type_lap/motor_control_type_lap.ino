@@ -20,10 +20,10 @@
 #define MOTOR_EN_PIN 18         //pin number connect with enable channel (option)
 /* ======================== */
 
-#define MOTOR_0 0           //PWM channel
-int motor_cmd = 0;          // motor command speed, specified as an integer value from -100 to 100.
-int pwm_cmd   = 0;         
-int PWM_duty_range = (pow( 2, PWM_RESOLUTION )-1) * (PWM_duty_limit_under + (100-PWM_duty_limit_upper)) * 0.005;
+#define MOTOR_0 0               //PWM channel
+double motor_cmd = 0;           // motor command speed, specified as an integer value from -100 to 100.
+int    pwm_cmd   = 0;         
+int    PWM_duty_range = (pow( 2, PWM_RESOLUTION )-1) * (PWM_duty_limit_under + (100-PWM_duty_limit_upper)) * 0.005;
 
 //ros setting
 ros::NodeHandle nh;
@@ -59,10 +59,10 @@ void setup() {
 void loop() {
   if ( nh.connected() ){
     //convert motor command to duty ratio
-    pwm_cmd = constrain( motor_cmd * PWM_duty_range, PWM_duty_limit_under, PWM_duty_limit_upper );
+    pwm_cmd = constrain( motor_cmd * PWM_duty_range + 511, PWM_duty_limit_under, PWM_duty_limit_upper );
 
     digitalWrite( MOTOR_EN_PIN, HIGH );
-    ledcWrite( MOTOR_0, 511 + pwm_cmd );    
+    ledcWrite( MOTOR_0, pwm_cmd );    
 
   }else{
     pwm_cmd = 511;

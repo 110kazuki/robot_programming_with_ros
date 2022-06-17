@@ -47,7 +47,7 @@
 6. rosserialのインストール  
     ```  
     $ sudo apt-get install ros-$(rosversion -d)-rosserial
-    $ sudo apt-get install ros-$(rosversion -d)-rosserial-aduino
+    $ sudo apt-get install ros-$(rosversion -d)-rosserial-arduino
     ```
 
 7. Arduino IDEをインストール  
