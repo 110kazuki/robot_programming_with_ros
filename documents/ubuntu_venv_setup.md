@@ -45,7 +45,7 @@ ROSで遊ぶにはUbuntu(Linux ディストリビューション)が欠かせな
         > https://jp.ubuntu.com/download
 
         Apple Silicon CPU : 
-        > https://ubuntu.com/download/server/arm
+        > https://cdimage.ubuntu.com/focal/daily-live/current/
 
 
 1. 仮想マシンの作成
