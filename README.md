@@ -1,4 +1,4 @@
-﻿# ros1_with_esp32
+﻿# Robot programming with ros (開発中)
 
 本パッケージは，ROS1とESP32を組み合わせて，センサ情報の収集やモータ制御を伴うロボットシステムを構築する基本的なサンプルとチュートリアルを提供するものである．  
 このパッケージを使うためには，Ubuntu 18.04 LTS が実行できるPC（MacやWindows上で仮想環境も可)とEspressif Systems社のArduino互換のマイコンであるESP32が必要である． 
