@@ -1,12 +1,12 @@
 ﻿# Robot programming with ros (開発中)
 
 本パッケージは，ROS1とESP32を組み合わせて，センサ情報の収集やモータ制御を伴うロボットシステムを構築する基本的なサンプルとチュートリアルを提供するものである．  
-このパッケージを使うためには，Ubuntu 18.04 LTS が実行できるPC（MacやWindows上で仮想環境も可)とEspressif Systems社のArduino互換のマイコンであるESP32が必要である． 
+このパッケージを使うためには，Ubuntu 20.04 LTS が実行できるPC（MacやWindows上で仮想環境も可)とEspressif Systems社のArduino互換のマイコンであるESP32が必要である． 
 ネットワークを介した通信が必要ない場合はArduinoデバイスで代用することも可能である．
 
 
 チュートリアルには以下のものが必要．
-- Ubuntu 18.04LTSを実行可能なパソコン(仮想環境も可)  
+- Ubuntu 20.04LTSを実行可能なパソコン(仮想環境も可)  
 - ESP32マイコン(Espressif Systems, ESP32-DevKitC-32Eを推奨)   
     > https://www.espressif.com/en/products/devkits/esp32-devkitc   
 - ポテンショメータ  
@@ -18,14 +18,14 @@
 - Wi-FiアダプタもしくはLANアダプタ(仮想環境を用いる場合)  
 
 # 初期設定
-1. ubuntu 18.04 LTSがインストールされたパソコン(仮想環境も可)を用意  
+1. ubuntu 20.04 LTSがインストールされたパソコン(仮想環境も可)を用意  
     仮想環境を用いる場合はWindowsではvmware workstation player，macではvmware fusion playerなどのアプリケーションが必要となる．
 
     また，ESP32をWi-Fi経由で仮想環境上のubuntuで動くrosと通信させる場合は，仮想環境を運用するホストPCがもつイーサネットやWi-Fiとは別にもう一つネットワークアダプタを用意すると便利である．
     Ubuntuの仮想環境の準備については，本パッケージ内の[Ubuntuの仮想環境をつくる](documents/ubuntu_venv_setup.md)を参照して欲しい．  
 
-2. ros1 melodicをインストール  
-    > http://wiki.ros.org/melodic/Installation/Ubuntu  
+2. ros1 noeticをインストール  
+    > http://wiki.ros.org/noetic/Installation/Ubuntu
 
 3. ros1のコンパイラであるcatkinでROSのパッケージをコンパイルするためのcatkin workspaceの作成  
     > http://wiki.ros.org/ja/catkin/Tutorials/create_a_workspace  
@@ -40,7 +40,7 @@
     本パッケージは`ros1_learning`という名前である．
     ```
     $ cd ~/catkin_ws/src
-    $ git clone git@github.com:110kazuki/ros1_with_esp32.git
+    $ git clone git@github.com:110kazuki/robot_programming_with_ros.git
     ```
     `~/catkin_ws/src/ros1_with_esp32-main` が作成される．
 
